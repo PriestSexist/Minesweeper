@@ -1,0 +1,33 @@
+version: '0.1'
+
+services:
+  minesweeper-db:
+    image: postgres:14
+    volumes:
+      - /var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=minesweeper
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  minesweeper-web:
+    build: .
+    depends_on:
+      minesweeper-db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://minesweeper-db:5432/minesweeper
+      - SPRING_DATASOURCE_USER=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+    dns:
+      - 8.8.8.8  # Google DNS
+      - 8.8.4.4  # Google DNS
