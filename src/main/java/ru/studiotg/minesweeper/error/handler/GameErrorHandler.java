@@ -11,10 +11,15 @@ import java.util.Collections;
 
 @RestControllerAdvice
 public class GameErrorHandler {
-
+    /**
+     * Обработка ошибки, когда пользователь передает неверные данные
+     *
+     * @param gameBadRequestException - ошибка
+     * @return - ответ, который отправляется пользователю
+     */
     @ExceptionHandler(GameBadRequestException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleBadRequestException(final Exception e) {
-        return new ErrorResponse(Collections.singletonList(e.getMessage()));
+    public ErrorResponse handleBadRequestException(final Exception gameBadRequestException) {
+        return new ErrorResponse(Collections.singletonList(gameBadRequestException.getMessage()));
     }
 }
