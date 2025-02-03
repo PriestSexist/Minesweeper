@@ -10,8 +10,6 @@ Java, Spring Framework, PostgreSQL, JPA(Hibernate), Maven, Docker, Lombok, Liqui
 _______________________________________________________________
 Web-service is monolite service.
 
-The interaction of modules is made through RestTemplate;
-
 The service is also ready for use on the Docker platform;
 _______________________________________________________________
 
